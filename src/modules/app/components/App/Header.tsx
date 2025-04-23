@@ -1,6 +1,6 @@
 import React from 'react';
 import { clsx } from 'clsx';
-import styles from './app.module.scss';
+import styles from './App.module.scss';
 
 function Header() {
 	return (
