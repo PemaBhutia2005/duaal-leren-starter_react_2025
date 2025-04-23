@@ -12,6 +12,6 @@ export interface trashSchedule {
 
 export interface trashNotification {
 	weather: Forecast;
-	date: string;
+	datum: string;
 	trashToCollect: trashItem;
 }

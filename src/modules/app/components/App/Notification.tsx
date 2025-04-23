@@ -1,44 +1,31 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { trashNotification } from '~/shared/services/trash/trash.service.types';
 
 export const Notification: FC<trashNotification> = ({
 	weather,
-	date,
+	datum,
 	trashToCollect,
 }) => {
+	let issue = '';
+
+	for (let [date, dayData] of Object.entries(weather)) {
+		if (date === datum) {
+			const condition = dayData.condition.text.toLowerCase();
+
+			if (
+				condition.includes('rain') &&
+				trashToCollect.name === 'Papier'
+			) {
+				issue = `It will rain on ${datum}. Please don't take your trash out!`;
+			} else {
+				issue = `It will be ${condition} on ${datum}. Please take your trash out!`;
+			}
+		}
+	}
 	return (
-		<div>
-			{(() => {
-				let showAlert = false;
-
-				for (let [day, dayData] of Object.entries(weather)) {
-					const condition = (
-						dayData as { condition: { text: string } }
-					).condition.text.toLowerCase();
-
-					if (
-						condition.includes('rain') &&
-						date === { date } &&
-						trashToCollect.name === 'paper'
-					) {
-						showAlert = true;
-						break;
-					}
-				}
-
-				if (showAlert) {
-					return (
-						<div className="alert">
-							<p>
-								It might rain tomorrow, so don't put your paper
-								outside!
-							</p>
-						</div>
-					);
-				} else {
-					return null;
-				}
-			})()}
-		</div>
+		<>
+			<h2>Weerbericht:</h2>
+			<p>{issue}</p>
+		</>
 	);
 };
