@@ -1,30 +1,53 @@
+import { t } from 'i18next';
 import { FC } from 'react';
-import { trashNotification } from '~/shared/services/trash/trash.service.types';
+import i18n from '~/i18n/i18n.config';
+import {
+	trashNotification,
+	trashLang,
+} from '~/shared/services/trash/trash.service.types';
 
-export const Notification: FC<trashNotification> = ({
+type NotificationProps = trashNotification & {
+	wea: string;
+	iss: string;
+	iss2: string;
+};
+
+export const Notification = ({
 	weather,
 	datum,
 	trashToCollect,
-}) => {
+	wea,
+	iss,
+	iss2,
+}: NotificationProps) => {
+	const currentLang = i18n.language as trashLang;
 	let issue = '';
 
 	for (let [date, dayData] of Object.entries(weather)) {
 		if (date === datum) {
-			const condition = dayData.condition.text.toLowerCase();
+			const condition = dayData.condition[currentLang].toLowerCase();
 
 			if (
 				condition.includes('rain') &&
-				trashToCollect.name === 'Papier'
+				(trashToCollect[currentLang] === 'Papier' ||
+					trashToCollect[currentLang] === 'Paper')
 			) {
-				issue = `It will rain on ${datum}. Please don't take your trash out!`;
+				issue = t(iss, { date: datum });
 			} else {
-				issue = `It will be ${condition} on ${datum}. Please take your trash out!`;
+				issue = t(iss2, {
+					condition: condition,
+					date: datum,
+				});
+				console.log('issue2:', iss2);
 			}
 		}
 	}
+
+	console.log('issue:', issue);
+
 	return (
 		<>
-			<h2>Weerbericht:</h2>
+			<h2>{wea}</h2>
 			<p>{issue}</p>
 		</>
 	);

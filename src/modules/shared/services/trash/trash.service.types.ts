@@ -2,7 +2,8 @@ import { Forecast } from '../weather/weather.service.types';
 
 export interface trashItem {
 	id: string;
-	name: string;
+	en: string;
+	fr: string;
 }
 
 export interface trashSchedule {
@@ -15,3 +16,7 @@ export interface trashNotification {
 	datum: string;
 	trashToCollect: trashItem;
 }
+
+type extractLanguage<interfaceType> = keyof interfaceType;
+
+export type trashLang = extractLanguage<Omit<trashItem, 'id'>>;
