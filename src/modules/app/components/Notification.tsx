@@ -30,7 +30,7 @@ export const Notification = ({
 			const condition = dayData.condition[currentLang].toLowerCase();
 
 			if (
-				condition.includes('rain') &&
+				(condition.includes('rain') || condition.includes('pluie')) &&
 				(trashToCollect[currentLang] === 'Papier' ||
 					trashToCollect[currentLang] === 'Paper')
 			) {
