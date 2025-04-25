@@ -21,6 +21,7 @@ export const Notification = ({
 	iss2,
 }: NotificationProps) => {
 	const currentLang = i18n.language as trashLang;
+	const trueWea: string = t(wea);
 	let issue = '';
 
 	for (let [date, dayData] of Object.entries(weather)) {
@@ -38,16 +39,13 @@ export const Notification = ({
 					condition: condition,
 					date: datum,
 				});
-				console.log('issue2:', iss2);
 			}
 		}
 	}
 
-	console.log('issue:', issue);
-
 	return (
 		<>
-			<h2>{wea}</h2>
+			<h2>{trueWea}</h2>
 			<p>{issue}</p>
 		</>
 	);

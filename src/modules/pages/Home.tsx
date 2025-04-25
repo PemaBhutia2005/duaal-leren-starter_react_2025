@@ -1,3 +1,4 @@
+//styling
 import styles from '../app/components/App/app.module.scss';
 import { clsx } from 'clsx';
 
@@ -15,6 +16,10 @@ import { useGetWeather } from '~/shared/hooks/use-get-weather';
 import { Forecast } from '~/shared/services/weather/weather.service.types';
 import { trashItem } from '~/shared/services/trash/trash.service.types';
 
+//packages
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+
 type HomeProps = {
 	col: string;
 	wea: string;
@@ -24,13 +29,18 @@ type HomeProps = {
 
 export const Home = ({ col, wea, iss, iss2 }: HomeProps) => {
 	// set date of the next collection
-	const date = '2025-04-21';
+	const [date, setDate] = useState('2025-04-21');
 	let forecast: Forecast | undefined;
 	let trashToCollect: trashItem | undefined;
-	console.log(wea, col, iss, iss2);
 
 	const { trashData, trashLoading } = useGetTrash();
 	const { weatherData, weatherLoading } = useGetWeather();
+
+	const { i18n, t } = useTranslation();
+
+	function setLanguage(language: string) {
+		i18n.changeLanguage(language);
+	}
 
 	if (weatherLoading || trashLoading) {
 		return (
@@ -50,6 +60,12 @@ export const Home = ({ col, wea, iss, iss2 }: HomeProps) => {
 		return (
 			<div className={clsx(styles['p-home'])}>
 				<div className={styles['p-home__container']}>
+					<h1
+						id="home"
+						className={clsx(styles['p-home__container__title'])}
+					>
+						Home
+					</h1>
 					<Header />
 					<Schedule
 						trashToCollect={trashToCollect}
@@ -64,6 +80,8 @@ export const Home = ({ col, wea, iss, iss2 }: HomeProps) => {
 						iss={iss}
 						iss2={iss2}
 					/>
+					<button onClick={() => setLanguage('en')}>Engels</button>
+					<button onClick={() => setLanguage('fr')}>Frans</button>
 				</div>
 			</div>
 		);
