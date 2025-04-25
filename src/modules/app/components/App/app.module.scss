@@ -1,12 +1,21 @@
 .p-home {
-	background-color: white;
+	background: #ff69b4;
+	background: radial-gradient(
+		circle,
+		rgba(255, 105, 180, 0.29) 0%,
+		rgba(255, 255, 255, 1) 83%
+	);
 	width: 100%;
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Poppins', sans-serif;
+
+	&__h2 {
+		font-size: 1.3rem;
+	}
 
 	&__container {
 		display: flex;
@@ -16,9 +25,11 @@
 		gap: 2rem;
 
 		&__title {
-			font-size: 2rem;
-			color: black;
-			margin: 0 auto;
+			font-size: 3rem;
+			font-family:
+				'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			color: #ff69b4;
+			margin-bottom: 2rem;
 			padding-top: 20px;
 		}
 
@@ -29,4 +40,52 @@
 			background-image: url('/hi.gif');
 		}
 	}
+}
+
+.langButtonContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 2rem;
+}
+
+.langButton {
+	background-color: hotpink;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: 600;
+	border-radius: 2rem;
+	border-color: transparent;
+	color: white;
+	transition: background-color 0.3s ease;
+
+	&:hover {
+		background-color: white;
+		border-width: 2px;
+		border-color: hotpink;
+		color: hotpink;
+	}
+}
+
+.dateButton {
+	background-color: transparent;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: 600;
+	border: none;
+	color: hotpink;
+	text-decoration: underline;
+	transition: background-color 0.3s ease;
+	margin-bottom: 2rem;
+
+	&:hover {
+		color: black;
+	}
+}
+
+.h2 {
+	font-size: 3rem;
+	color: red;
 }

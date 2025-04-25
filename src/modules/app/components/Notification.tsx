@@ -1,10 +1,11 @@
 import { t } from 'i18next';
-import { FC } from 'react';
 import i18n from '~/i18n/i18n.config';
 import {
 	trashNotification,
 	trashLang,
 } from '~/shared/services/trash/trash.service.types';
+
+import styles from './App/app.module.scss';
 
 type NotificationProps = trashNotification & {
 	wea: string;
@@ -45,7 +46,7 @@ export const Notification = ({
 
 	return (
 		<>
-			<h2>{trueWea}</h2>
+			<h2 className={styles['p-home__h2']}>{trueWea}</h2>
 			<p>{issue}</p>
 		</>
 	);

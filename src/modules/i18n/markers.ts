@@ -5,4 +5,7 @@ export const markers = {
 	weatherMessage: 'weatherMessage',
 	issue1: 'issue1',
 	issue2: 'issue2',
+	lan1: 'lan1',
+	lan2: 'lan2',
+	changeDate: 'changeDate',
 };

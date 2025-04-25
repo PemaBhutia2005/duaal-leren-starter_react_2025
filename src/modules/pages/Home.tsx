@@ -17,8 +17,9 @@ import { Forecast } from '~/shared/services/weather/weather.service.types';
 import { trashItem } from '~/shared/services/trash/trash.service.types';
 
 //packages
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { useState } from 'react';
+import { markers } from '~/i18n/markers';
 
 type HomeProps = {
 	col: string;
@@ -30,6 +31,13 @@ type HomeProps = {
 export const Home = ({ col, wea, iss, iss2 }: HomeProps) => {
 	// set date of the next collection
 	const [date, setDate] = useState('2025-04-21');
+	function changeDate() {
+		const forecastDates = Object.keys(weatherData?.forecast);
+		const currentIndex = forecastDates.indexOf(date);
+		const nextIndex = (currentIndex + 1) % forecastDates.length;
+		setDate(forecastDates[nextIndex]);
+	}
+
 	let forecast: Forecast | undefined;
 	let trashToCollect: trashItem | undefined;
 
@@ -60,18 +68,18 @@ export const Home = ({ col, wea, iss, iss2 }: HomeProps) => {
 		return (
 			<div className={clsx(styles['p-home'])}>
 				<div className={styles['p-home__container']}>
-					<h1
-						id="home"
-						className={clsx(styles['p-home__container__title'])}
-					>
-						Home
-					</h1>
 					<Header />
 					<Schedule
 						trashToCollect={trashToCollect}
 						date={date}
 						col={col}
 					/>
+					<button
+						className={clsx(styles['dateButton'])}
+						onClick={() => changeDate()}
+					>
+						<Trans>{markers.changeDate}</Trans>
+					</button>
 					<Notification
 						weather={forecast}
 						datum={date}
@@ -80,8 +88,20 @@ export const Home = ({ col, wea, iss, iss2 }: HomeProps) => {
 						iss={iss}
 						iss2={iss2}
 					/>
-					<button onClick={() => setLanguage('en')}>Engels</button>
-					<button onClick={() => setLanguage('fr')}>Frans</button>
+					<div className={clsx(styles['langButtonContainer'])}>
+						<button
+							className={clsx(styles['langButton'])}
+							onClick={() => setLanguage('fr')}
+						>
+							<Trans>{markers.lan1}</Trans>
+						</button>
+						<button
+							className={clsx(styles['langButton'])}
+							onClick={() => setLanguage('en')}
+						>
+							<Trans>{markers.lan2}</Trans>
+						</button>
+					</div>
 				</div>
 			</div>
 		);
